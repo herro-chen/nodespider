@@ -1,0 +1,19 @@
+/* Write your styles */
+
+.get {
+  background: #3bb4f2;
+  color: #fff;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.detail{
+  padding: 30px 0;
+}
+
+.am-item-btns{
+  position: absolute;
+  right: 5px;
+  top: 8px;
+  display: none;
+}
