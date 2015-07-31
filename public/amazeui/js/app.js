@@ -14,6 +14,7 @@
 })(jQuery);
 
 $(function(){
+		
 	$("#spider-list").delegate('li', {
 		mouseenter: function () {
 			$(this).children('div').show();
@@ -22,4 +23,35 @@ $(function(){
 			$(this).children('div').hide();
 		}
 	});
+	
+	
+	$('#AddBtn').on('click', function() {
+		$('#AddTpl').modal({
+			relatedTarget: this,
+			onConfirm: function(options) {
+				var AddForm = $('#AddForm');
+				var form = {};
+				form.name = AddForm.find('.name').val();
+				form.url = AddForm.find('.url').val();
+				
+				$.post('/project/add', form, function(data){
+					addItem(data.item);					
+				})
+				
+			},
+			//closeOnConfirm: false,
+			onCancel: function() {
+				//console.log(this.relatedTarget);
+			}
+		});
+	});	
+	
+	
+	function addItem(item){
+		var spiderList = $('#spider-list');
+		var dom = spiderList.find('li').last().clone();
+		dom.find('span').html(item.name);
+		spiderList.append(dom);
+	}
+	
 })

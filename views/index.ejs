@@ -18,27 +18,53 @@
 	<div class="detail">
 		<div class="am-g am-container">
 			<div class="am-u-lg-12">
-			<h2 class="detail-h2">任务列表</h2>
+			<div class="am-cf">
+				<h2 class="am-fl">任务列表</h2>
+				<button class="am-btn am-btn-success am-fr" id="AddBtn">添加任务</button>
+			</div>
 			<ul class="am-list am-list-static am-list-striped" id="spider-list">
+				<% lists.forEach(function(list, index){ %>
 				<li>
-					<span>京东笔记本图片</span>
+					<span><%= list.filename %></span>
 					<div class="am-item-btns">
 						<button class="am-btn am-btn-xs am-btn-success" tag="start">爬取</button>
 						<button class="am-btn am-btn-xs am-btn-primary" tag="edit">修改</button>
 						<button class="am-btn am-btn-xs am-btn-warning" tag="remove">删除</button>
 					</div>
 				</li>
-				<li>
-					<span>豆瓣电影</span>
-					<div class="am-item-btns">
-						<button class="am-btn am-btn-xs am-btn-success" tag="start">爬取</button>
-						<button class="am-btn am-btn-xs am-btn-primary" tag="edit">修改</button>
-						<button class="am-btn am-btn-xs am-btn-warning" tag="remove">删除</button>
-					</div>
-				</li>
+				<% }) %>
 			</ul>
 		</div>
 	</div>
+	
+	
+	<div class="am-modal am-modal-confirm" tabindex="-1" id="AddTpl">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">添加任务</div>
+			<div class="am-modal-bd">
+				<form class="am-form am-form-horizontal" id="AddForm">
+					<div class="am-form-group">
+						<label class="am-u-sm-3 am-form-label">任务名称</label>
+						<div class="am-u-sm-9">
+							<input type="text" class="name" name="name" placeholder="">
+						</div>
+					</div>
+
+					<div class="am-form-group">
+						<label class="am-u-sm-3 am-form-label">页面URL</label>
+						<div class="am-u-sm-9">
+							<input type="text" class="url" name="url" placeholder="">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="am-modal-footer">
+				<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+				<span class="am-modal-btn" data-am-modal-confirm>确定</span>
+			</div>
+		</div>
+	</div>	
+	
 	
 	<script src="/amazeui/js/jquery.min.js"></script>
 	<script src="/amazeui/js/amazeui.min.js"></script>
