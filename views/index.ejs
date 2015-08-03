@@ -27,20 +27,28 @@
 				<li>
 					<span><%= list.filename %></span>
 					<div class="am-item-btns">
-						<button class="am-btn am-btn-xs am-btn-success" tag="start">爬取</button>
-						<button class="am-btn am-btn-xs am-btn-primary" tag="edit">修改</button>
-						<button class="am-btn am-btn-xs am-btn-warning" tag="remove">删除</button>
+						<button class="am-btn am-btn-xs am-btn-success" action="start">爬取</button>
+						<button class="am-btn am-btn-xs am-btn-primary" action="edit">修改</button>
+						<button class="am-btn am-btn-xs am-btn-warning" action="remove">删除</button>
 					</div>
 				</li>
 				<% }) %>
 			</ul>
 		</div>
 	</div>
-	
+
+	<div class="am-modal am-modal-no-btn" tabindex="-1" id="TipTpl">
+		<div class="am-modal-dialog">
+			<div class="am-modal-hd">
+				<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+			</div>
+			<div class="am-modal-bd"></div>
+		</div>
+	</div>
 	
 	<div class="am-modal am-modal-confirm" tabindex="-1" id="AddTpl">
 		<div class="am-modal-dialog">
-			<div class="am-modal-hd">添加任务</div>
+			<div class="am-modal-hd" id="AddTplTitle">添加任务</div>
 			<div class="am-modal-bd">
 				<form class="am-form am-form-horizontal" id="AddForm">
 					<div class="am-form-group">
@@ -64,7 +72,6 @@
 			</div>
 		</div>
 	</div>	
-	
 	
 	<script src="/amazeui/js/jquery.min.js"></script>
 	<script src="/amazeui/js/amazeui.min.js"></script>

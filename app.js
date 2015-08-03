@@ -11,8 +11,6 @@ var project = require('./routes/project');
 
 var app = express();
 
-global.ROOT = path.join(__dirname, '../');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
