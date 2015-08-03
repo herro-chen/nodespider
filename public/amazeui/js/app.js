@@ -1,3 +1,9 @@
+var socket = io.connect('http://localhost:8080');
+socket.on('news', function (data){
+	console.log(data); 
+	socket.emit('my other event', { my: 'data' });
+});
+
 var exec = {};
 
 exec.modal = function(_data){
@@ -23,7 +29,7 @@ exec.modal = function(_data){
 			form.url = AddForm.find('.url').val();
 			form.oldName = _data ? _data.name : '';
 			$.post(actionUrl, form, function(data){
-				if(json.status){
+				if(data.status){
 					addItem(data.item);
 				}else{
 					tip('添加任务失败');
@@ -31,7 +37,7 @@ exec.modal = function(_data){
 			})
 		},
 		//closeOnConfirm: false,
-		onCancel: function() {
+		onCancel: function(){
 			//console.log(this.relatedTarget);
 		}
 	});
@@ -45,14 +51,14 @@ exec.edit = function(){
         url: '/project/edit',
         data: {name: self.parent('.am-item-btns').prev('span').text()},
         cache: false,
-        success: function(json){
-            if(json.status){
-                exec.modal.call(that, json.item);
+        success: function(data){
+            if(data.status){
+                exec.modal.call(that, data.item);
             }else{
                 tip('获取数据失败');
             }
         },
-        error: function () {
+        error: function(){
             tip('获取数据失败');
         }
     });
@@ -65,20 +71,26 @@ exec.remove = function(){
         url: '/project/delete',
         data: {name: self.parent('.am-item-btns').prev('span').text()},
         cache: false,
-        success: function(json){
-            if(json.status){
+        success: function(data){
+            if(data.status){
 				self.parents('li').remove();
                 tip('删除配置成功');
             }else{
                 tip('删除配置失败');
             }
         },
-        error: function () {
+        error: function(){
             tip('删除配置失败');
         }
     });	
 };
 
+// 执行爬虫
+exec.start = function(){
+	var self = $(this);
+    var name = self.parent('.am-item-btns').prev('span').text();
+	console.log(name);
+}
 
 function tip(text){
 	var TipTpl = $('#TipTpl');
@@ -107,6 +119,8 @@ $(function(){
 		exec.edit.apply(this);
 	}).delegate("li button[action=remove]", 'click', function(){
 		exec.remove.apply(this);
+	}).delegate("li button[action=start]", 'click', function(){
+		exec.start.apply(this);
 	})
 	
 	$('#AddBtn').on('click', function(){
