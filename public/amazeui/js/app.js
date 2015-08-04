@@ -1,7 +1,6 @@
 var socket = io.connect('http://localhost:8080');
 socket.on('news', function (data){
-	console.log(data); 
-	socket.emit('my other event', { my: 'data' });
+	console.log(data);
 });
 
 var exec = {};
@@ -90,6 +89,7 @@ exec.start = function(){
 	var self = $(this);
     var name = self.parent('.am-item-btns').prev('span').text();
 	console.log(name);
+	socket.emit('message', JSON.stringify({"action":"start", "name": name}));
 }
 
 function tip(text){

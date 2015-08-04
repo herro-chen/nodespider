@@ -11,13 +11,8 @@ var project = require('./routes/project');
 
 var app = express();
 
+var cp = require('child_process');
 var io = require('socket.io').listen(8080);
-io.sockets.on('connection', function(socket){
-	socket.emit('news', { hello: 'world' });
-	socket.on('my other event', function(data){
-		console.log(data);
-	});
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +30,23 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/project', project);
 
-
+var worker;
+io.sockets.on('connection', function(socket){
+	socket.emit('news', { hello: 'world' });
+	socket.on('message', function(data){
+		data = JSON.parse(data);
+		if(data.action === 'start'){
+			worker = cp.fork('./lib/spider.js');
+			worker.send(data.name);
+			worker.on("message", function(log){
+				console.log(log);
+			});
+		}else if(data.action === 'stop'){
+			
+		}
+		
+	});
+});
 
 
 // catch 404 and forward to error handler
