@@ -1,1 +1,1 @@
-{"name":"豆瓣读书","url":"http://book.douban.com/"}
+{"name":"豆瓣读书","url":"http://www.douban.com/tag/%E7%BC%96%E7%A8%8B/book","selector":"$('.article .book-list dt a')","selectorAttr":"href","element":"[{\"name\":\"title\",\"selector\":\"$('#wrapper h1').text().trim()\"}]","oldName":"豆瓣读书"}

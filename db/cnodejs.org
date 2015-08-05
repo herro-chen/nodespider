@@ -1,0 +1,1 @@
+{"name":"cnodejs.org","url":"https://cnodejs.org/","selector":"$('#topic_list .topic_title')","selectorAttr":"href","element":"[{\"name\":\"title\",\"selector\":\"$('.topic_full_title').text().trim()\"}]","oldName":""}

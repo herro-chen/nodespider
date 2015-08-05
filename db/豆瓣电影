@@ -1,1 +1,1 @@
-{"name":"豆瓣电影","url":"http://movie.douban.com/"}
+{"name":"豆瓣电影","url":"http://movie.douban.com/chart","selector":"$('.indent table .pl2 a')","selectorAttr":"href","element":"[{\"name\":\"title\",\"selector\":\"$('#content h1').text().trim()\"}]","oldName":"豆瓣电影"}

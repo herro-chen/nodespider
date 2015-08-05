@@ -32,17 +32,20 @@ app.use('/project', project);
 
 var worker;
 io.sockets.on('connection', function(socket){
-	socket.emit('news', { hello: 'world' });
+	
 	socket.on('message', function(data){
 		data = JSON.parse(data);
 		if(data.action === 'start'){
 			worker = cp.fork('./lib/spider.js');
 			worker.send(data.name);
 			worker.on("message", function(log){
-				console.log(log);
+				socket.emit('log', log);
 			});
+			worker.on("close", function(code, signal){
+				!code && socket.emit('log', {info: '已手动停止抓取'});
+			});			
 		}else if(data.action === 'stop'){
-			
+			worker.kill();
 		}
 		
 	});

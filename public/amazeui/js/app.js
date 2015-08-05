@@ -1,6 +1,7 @@
 var socket = io.connect('http://localhost:8080');
-socket.on('news', function (data){
-	console.log(data);
+socket.on('log', function (data){
+	var data = JSON.parse(data);
+	$('.log-list').prepend('<li>' + data.info + '</li>');
 });
 
 var exec = {};
@@ -10,14 +11,30 @@ exec.modal = function(_data){
 	var AddForm = $('#AddForm');
 	var AddTplTitle = $('#AddTplTitle');
 	var actionUrl = '/project/edit';
+	$('.element-item').remove();
+	var e = $('.element-item-default').first();
 	if(_data){
 		AddTplTitle.html('修改任务');
 		AddForm.find('.name').val(_data.name);
 		AddForm.find('.url').val(_data.url);
+		AddForm.find('.selector').val(_data.selector);
+		AddForm.find('.selectorAttr').val(_data.selectorAttr);
+		var elements = _data.element ? JSON.parse(_data.element) : {};
+		$.each(elements, function(i, element){
+			var elementItem = e.clone();
+			elementItem.addClass('element-item');
+			elementItem.removeClass('am-hide');
+			elementItem.find('.elementName').val(element.name);
+			elementItem.find('.elementSelector').val(element.selector);
+			e.before(elementItem);
+		});
+		
 	}else{
 		AddTplTitle.html('添加任务');
 		AddForm.find('.name').val('');
 		AddForm.find('.url').val('');
+		AddForm.find('.selector').val('');
+		AddForm.find('.selectorAttr').val('');
 		actionUrl = '/project/add';
 	}
 	
@@ -26,6 +43,18 @@ exec.modal = function(_data){
 			var form = {};
 			form.name = AddForm.find('.name').val();
 			form.url = AddForm.find('.url').val();
+			form.selector = AddForm.find('.selector').val();
+			form.selectorAttr = AddForm.find('.selectorAttr').val();
+			var elementItem = [];
+			$('#AddTpl .element-item').each(function(idx, element){
+				var item = {};
+				var $element = $(element);
+				item.name = $element.find('.elementName').val();
+				item.selector = $element.find('.elementSelector').val();
+				elementItem.push(item);
+			})
+			elementItem = JSON.stringify(elementItem);
+			form.element = elementItem;
 			form.oldName = _data ? _data.name : '';
 			$.post(actionUrl, form, function(data){
 				if(data.status){
@@ -85,11 +114,22 @@ exec.remove = function(){
 };
 
 // 执行爬虫
-exec.start = function(){
+exec.start = function(){	
+	var self = $(this);
+	var name = self.parent('.am-item-btns').prev('span').text();
+	var wrap = $('.wrap');
+	var logList = $('.log-list');	
+	wrap.addClass('wrap-go');
+	setTimeout(function(){
+		socket.emit('message', JSON.stringify({"action":"start", "name": name}));
+	},600)
+}
+
+//停止爬虫
+exec.stop = function(){
 	var self = $(this);
     var name = self.parent('.am-item-btns').prev('span').text();
-	console.log(name);
-	socket.emit('message', JSON.stringify({"action":"start", "name": name}));
+	socket.emit('message', JSON.stringify({"action":"stop", "name": name}));
 }
 
 function tip(text){
@@ -121,9 +161,25 @@ $(function(){
 		exec.remove.apply(this);
 	}).delegate("li button[action=start]", 'click', function(){
 		exec.start.apply(this);
+	}).delegate("li button[action=stop]", 'click', function(){
+		exec.stop.apply(this);
 	})
 	
 	$('#AddBtn').on('click', function(){
 		exec.modal.apply(this);
-	});		
+	});
+	
+	$('#addElement').on('click', function(){
+		var e = $('.element-item-default').first();
+		var elementItem = e.clone();
+		elementItem.addClass('element-item');
+		elementItem.removeClass('am-hide');
+		elementItem.find('input').val('');
+		e.after(elementItem);
+	})
+	
+	$('#AddTpl').on('click', '.element-remove', function(){
+		$(this).parents('.element-item').remove();
+	})
+	
 })

@@ -8,37 +8,44 @@
 		<link rel='stylesheet' href='/amazeui/css/app.css' />
 	</head>
 <body>
-	<div class="get">
-		<div class="am-g">
-			<div class="am-u-lg-12">
-				<h1 class="get-title">NodeSpider</h1>
-				<p>一个简单易用的爬虫系统</p>
+	<div class="wrap transition">
+		<div class="get">
+			<div class="am-g">
+				<div class="am-u-lg-12">
+					<h1 class="get-title">NodeSpider</h1>
+					<p>一个简单易用的爬虫系统</p>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="detail">
-		<div class="am-g am-container">
-			<div class="am-u-lg-12">
-			<div class="am-cf">
-				<h2 class="am-fl">任务列表</h2>
-				<button class="am-btn am-btn-success am-fr" id="AddBtn">添加任务</button>
-			</div>
-			<ul class="am-list am-list-static am-list-striped" id="spider-list">
-				<% lists.forEach(function(list, index){ %>
-				<li>
-					<span><%= list.filename %></span>
-					<div class="am-item-btns">
-						<button class="am-btn am-btn-xs am-btn-success" action="start">爬取</button>
-						<button class="am-btn am-btn-xs am-btn-primary" action="edit">修改</button>
-						<button class="am-btn am-btn-xs am-btn-warning" action="remove">删除</button>
+		<div class="detail">
+			<div class="am-g am-container">
+				<div class="am-u-lg-12">
+					<div class="am-cf">
+						<h2 class="am-fl">任务列表</h2>
+						<button class="am-btn am-btn-success am-fr" id="AddBtn">添加任务</button>
 					</div>
-				</li>
-				<% }) %>
-			</ul>
+					<ul class="am-list am-list-static am-list-striped" id="spider-list">
+						<% lists.forEach(function(list, index){ %>
+						<li>
+							<span><%= list.filename %></span>
+							<div class="am-item-btns">
+								<button class="am-btn am-btn-xs am-btn-success" action="start">爬取</button>
+								<button class="am-btn am-btn-xs am-btn-warning" action="stop">停止</button>
+								<button class="am-btn am-btn-xs am-btn-primary" action="edit">修改</button>
+								<button class="am-btn am-btn-xs am-btn-warning" action="remove">删除</button>
+							</div>
+						</li>
+						<% }) %>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
-
+	
+	<ul class="am-list log-list">
+	</ul>
+	
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="TipTpl">
 		<div class="am-modal-dialog">
 			<div class="am-modal-hd">
@@ -65,28 +72,37 @@
 							<input type="text" class="url" name="url" placeholder="">
 						</div>
 					</div>
+					<div class="am-form-group">
+						<label class="am-u-sm-3 am-form-label">选择器</label>
+						<div class="am-u-sm-9">
+							<input type="text" class="selector" name="selector" placeholder="">
+						</div>
+					</div>
+					<div class="am-form-group">
+						<label class="am-u-sm-3 am-form-label">URL属性</label>
+						<div class="am-u-sm-9">
+							<input type="text" class="selectorAttr" name="selectorAttr" placeholder="">
+						</div>
+					</div>
 				</form>
-				
-				<div class="am-text-left">
-					<button type="button" class="am-btn am-btn-primary am-btn-xs">增加层级</button>
-					<table class="am-table">
-						<thead>
-							<tr>
-								<th>层级</th>
-								<th>选择器</th>
-								<th>url所在属性</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td><input type="text" class="selector" name="selector" placeholder=""></td>
-								<td><input type="text" class="selector" name="selector" placeholder=""></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="am-text-right addElement">
+					<button type="button" class="am-btn am-btn-primary am-btn-xs" id="addElement">增加元素</button>
+				</div>
+				<div class="am-g">
+					<div class="am-u-sm-4">元素</div>
+					<div class="am-u-sm-5">选择器</div>
+					<div class="am-u-sm-3"></div>
+				</div>
+				<div class="am-g element-item-default am-hide">
+					<div class="am-u-sm-4">
+						<input type="text" class="elementName" placeholder="">
+					</div>
+					<div class="am-u-sm-5">
+						<input type="text" class="elementSelector" placeholder="">
+					</div>
+					<div class="am-u-sm-3">
+						<button class="am-btn am-btn-danger am-btn-xs element-remove">删除</button>
+					</div>
 				</div>
 			</div>
 			<div class="am-modal-footer">

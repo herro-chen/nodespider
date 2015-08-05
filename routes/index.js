@@ -12,7 +12,7 @@ router.get('/', function(req, res, next){
 		var info = { filename: file };
 		filesinfo.push(info);
 	})
-	console.log(filesinfo);
+	//console.log(filesinfo);
 	res.render('index', { lists: filesinfo });
 });
 
