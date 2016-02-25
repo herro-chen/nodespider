@@ -19,6 +19,7 @@ NodeSpider 是一个 nodejs 实现的爬虫系统
 
 ```
   git clone https://github.com/herro-chen/nodespider.git
+  cd nodespider
   npm install
   npm start
 ```
