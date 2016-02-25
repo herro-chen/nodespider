@@ -1,4 +1,4 @@
-![NodeSpider](https://github.com/herro-chen/nodespider/tree/master/public/amazeui/image/0.png)
+![NodeSpider](https://raw.githubusercontent.com/herro-chen/nodespider/master/public/amazeui/image/0.png)
 ##NodeSpider是什么?
 
 NodeSpider 是一个 nodejs 实现的爬虫系统
@@ -15,10 +15,17 @@ NodeSpider 是一个 nodejs 实现的爬虫系统
 #### async
 流程控制模块
 
-![NodeSpider](https://github.com/herro-chen/nodespider/tree/master/public/amazeui/image/1.png)
-![NodeSpider](https://github.com/herro-chen/nodespider/tree/master/public/amazeui/image/2.png)
-![NodeSpider](https://github.com/herro-chen/nodespider/tree/master/public/amazeui/image/3.png)
+### 安装
 
+```
+  git clone https://github.com/herro-chen/nodespider.git
+  npm install
+  npm start
+```
+
+![NodeSpider](https://raw.githubusercontent.com/herro-chen/nodespider/master/public/amazeui/image/1.png)
+![NodeSpider](https://raw.githubusercontent.com/herro-chen/nodespider/master/public/amazeui/image/2.png)
+![NodeSpider](https://raw.githubusercontent.com/herro-chen/nodespider/master/public/amazeui/image/3.png)
 
 ##感激
 感谢以下的项目
