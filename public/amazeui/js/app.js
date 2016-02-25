@@ -1,9 +1,3 @@
-var socket = io.connect('http://localhost:8080');
-socket.on('log', function (data){
-	var data = JSON.parse(data);
-	$('.log-list').prepend('<li>' + data.info + '</li>');
-});
-
 var exec = {};
 
 exec.modal = function(_data){
@@ -58,7 +52,10 @@ exec.modal = function(_data){
 			form.oldName = _data ? _data.name : '';
 			$.post(actionUrl, form, function(data){
 				if(data.status){
-					addItem(data.item);
+          tip('添加任务成功');
+          setTimeout(function(){
+            window.location.reload();
+          }, 1000);
 				}else{
 					tip('添加任务失败');
 				}
@@ -116,20 +113,13 @@ exec.remove = function(){
 // 执行爬虫
 exec.start = function(){	
 	var self = $(this);
-	var name = self.parent('.am-item-btns').prev('span').text();
-	var wrap = $('.wrap');
-	var logList = $('.log-list');	
-	wrap.addClass('wrap-go');
-	setTimeout(function(){
-		socket.emit('message', JSON.stringify({"action":"start", "name": name}));
-	},600)
+	var name = self.parent('.am-item-btns').prev('span').text();	
 }
 
 //停止爬虫
 exec.stop = function(){
 	var self = $(this);
-    var name = self.parent('.am-item-btns').prev('span').text();
-	socket.emit('message', JSON.stringify({"action":"stop", "name": name}));
+  var name = self.parent('.am-item-btns').prev('span').text();
 }
 
 function tip(text){
@@ -144,7 +134,6 @@ function addItem(item){
 	dom.find('span').html(item.name);
 	spiderList.append(dom);
 }
-
 
 
 $(function(){

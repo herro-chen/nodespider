@@ -30,10 +30,10 @@
 						<li>
 							<span><%= list.filename %></span>
 							<div class="am-item-btns">
-								<button class="am-btn am-btn-xs am-btn-success" action="start">爬取</button>
+								<a class="am-btn am-btn-xs am-btn-success" href="/project/start?name=<%= list.filename %>" target="_blank">爬取</a>
 								<button class="am-btn am-btn-xs am-btn-warning" action="stop">停止</button>
 								<button class="am-btn am-btn-xs am-btn-primary" action="edit">修改</button>
-								<button class="am-btn am-btn-xs am-btn-warning" action="remove">删除</button>
+								<button class="am-btn am-btn-xs am-btn-danger" action="remove">删除</button>
 							</div>
 						</li>
 						<% }) %>
@@ -42,10 +42,7 @@
 			</div>
 		</div>
 	</div>
-	
-	<ul class="am-list log-list">
-	</ul>
-	
+
 	<div class="am-modal am-modal-no-btn" tabindex="-1" id="TipTpl">
 		<div class="am-modal-dialog">
 			<div class="am-modal-hd">
@@ -110,11 +107,10 @@
 				<span class="am-modal-btn" data-am-modal-confirm>确定</span>
 			</div>
 		</div>
-	</div>	
+	</div>
 	
 	<script src="/amazeui/js/jquery.min.js"></script>
 	<script src="/amazeui/js/amazeui.min.js"></script>
-	<script src="/amazeui/js/socket.io.js"></script>
 	<script src="/amazeui/js/app.js"></script>
 </body>
 </html>
